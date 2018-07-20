@@ -3,3 +3,35 @@ layout: default
 title: Blog
 blog: active
 ---
+<!-- This loops through the paginated posts -->
+{% for post in paginator.posts %}
+  <h1>
+    <a href="{{ site.github.url }}{{ post.url }}">{{ post.title }}</a>
+  </h1>
+  {% if post.image %}
+  <div class="thumbnail-container">
+    <a href="{{ site.github.url }}{{ post.url }}"><img src="{{ site.github.url }}/assets/img/{{ post.image }}"></a>
+  </div>
+  {% endif %}
+  <p>
+    <!--{{ post.content | strip_html | truncate: 350 }} -->
+    <a href="{{ site.github.url }}{{ post.url }}">Read more</a>
+    <span class="post-date"><i class="far fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date_to_string }} -
+        <i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}</span>
+  </p>
+{% endfor %}
+
+<!-- Pagination links -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+  {% else %}
+    <span class="previous">Previous</span>
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+  {% else %}
+    <span class="next ">Next</span>
+  {% endif %}
+</div>
